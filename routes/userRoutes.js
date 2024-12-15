@@ -1,13 +1,19 @@
 import express from "express";
 import usersController from "../controllers/usersController.js";
-import { isAdmin } from "../middlewares/authJwt.js";
-import { checkExistingUser } from "../middlewares/verifySignup.js";
 const router = express.Router();
 
-router.get("/api/users", usersController.getAll);
-router.get("/api/users/:id", usersController.getById);
-router.post("/api/users", usersController.create);
-router.patch("/api/users/:id", checkExistingUser, usersController.update);
-router.delete("/api/users/:id",isAdmin, usersController.destroy);
+// Ruta para obtener todos los usuarios
+router.get("/api/users", usersController.list);
+
+// Ruta para obtener un usuario por ID
+router.get("/api/users/:id", usersController.getUserProfile);
+
+
+
+// Ruta para actualizar un usuario
+router.patch("/api/users/:id", usersController.update);
+
+// Ruta para eliminar un usuario
+router.delete("/api/users/:id", usersController.destroy);
 
 export default router;

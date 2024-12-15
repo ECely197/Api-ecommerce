@@ -1,88 +1,81 @@
-import bcrypt from "bcryptjs";
 import User from "../models/User.js";
+import jwt from 'jsonwebtoken';
+import bcrypt from 'bcrypt'; 
+import { body, validationResult } from 'express-validator'; // Importa para validaciones
 
-import Role from "../models/Role.js";
-
-async function getAll(req, res) {
-  try {
-    const users = await User.find({ deletedAt: null });
-    return res.json(users);
-  } catch (error) {
-    console.log(error);
-    return res.status(404).json("Usuarios no encontrados");
-  }
+// Obtener lista de usuarios
+async function list(req, res) {
+    try {
+        const userList = await User.find({ deletedAt: null });
+        return res.json(userList);
+    } catch (err) {
+        console.error('Error fetching user list:', err.message);
+        return res.status(500).json({ message: 'Error del servidor' });
+    }
 }
 
-async function create(req, res) {
-  try {
-    const { name, email, password, address, phone, roles } = req.body;
-    const rolesFound = await Role.find({ name: { $in: roles } });
-    const user = await User.create({
-      name,
-      email,
-      password,
-      address,
-      phone,
-      roles: rolesFound.map((role) => role._id),
-    });
-
-    const savedUser = await user.save();
-
-    return res.status(200).json({
-      _id: savedUser._id,
-      name: savedUser.name,
-      email: savedUser.email,
-      roles: savedUser.roles,
-    });
-  } catch (error) {
-    console.log(error);
-    return res.status(500).json("Internal server error");
-  }
-}
-
-async function getById(req, res) {
-  try {
-    const user = await User.findById(req.params.id);
-    return res.json(user);
-  } catch (error) {
-    console.log(error);
-    return res.status(404).json("Usuario no encontrado");
-  }
-}
-
-async function update(req, res) {
-  const userToUpdate = await User.findById(req.params.id);
-
-  if (userToUpdate !== null) {
-    const { name, email, password, address, phone } = req.body;
-
-    userToUpdate.name = name || userToUpdate.name;
-    userToUpdate.email = email || userToUpdate.email;
-    userToUpdate.password = password || userToUpdate.password;
-    userToUpdate.address = address || userToUpdate.address;
-    userToUpdate.phone = phone || userToUpdate.phone;
-
-    await userToUpdate.save();
-
-    return res.json("El usuario ha sido actualizado");
-  } else {
-    return res.json("No existe usuario con el ID mencionado");
-  }
-}
-
+// Eliminar un usuario (marcar como eliminado)
 async function destroy(req, res) {
-  const userDelete = await User.findById(req.params.id);
+    try {
+        const user = await User.findByIdAndUpdate(req.params.id, { deletedAt: Date.now() }, { new: true });
+        if (!user) {
+            return res.status(404).json({ message: "Usuario no encontrado" });
+        }
+        return res.json({ message: "Usuario borrado" });
+    } catch (err) {
+        console.error('Error deleting user:', err.message);
+        return res.status(500).json({ message: 'Error del servidor' });
+    }
+}
+// Actualizar un usuario
+async function update(req, res) {
+  try {
+      const { firstname, lastname, email, avatar } = req.body;
+      const updatedUser = await User.findByIdAndUpdate(
+          req.params.id, 
+          { firstname, lastname, email, avatar },
+          { new: true }
+      );
 
-  userDelete.deletedAt = Date.now();
-  userDelete.save();
+      if (!updatedUser) {
+          return res.status(404).json({ message: "Usuario no encontrado" });
+      }
 
-  return res.json("El user se ha eliminado");
+      return res.json(updatedUser);
+  } catch (err) {
+      console.error('Error updating user:', err.message);
+      return res.status(500).json({ message: 'Error del servidor' });
+  }
 }
 
-export default {
-  getAll: getAll,
-  getById: getById,
-  create: create,
-  update: update,
-  destroy: destroy,
-};
+
+
+// Obtener el perfil de usuario
+async function getUserProfile(req, res) {
+    try {
+        const token = req.headers.authorization?.split(" ")[1];
+        if (!token) {
+            return res.status(401).json({ message: 'No se proporcionó un token de autorización' });
+        }
+
+        // Decodifica el token para obtener el userId
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        const userId = decoded.id; // ID del usuario
+
+        const user = await User.findById(userId).select('firstname lastname avatar'); 
+        if (!user) {
+            return res.status(404).json({ message: 'Usuario no encontrado' });
+        }
+
+        return res.json({
+            name: `${user.firstname} ${user.lastname}`,
+            avatar: user.avatar // La ruta correcta del archivo
+        });
+    } catch (err) {
+        console.error('Error fetching user profile:', err.message);
+        return res.status(500).json({ message: 'Error del servidor', error: err.message });
+    }
+}
+
+// Exportar la función
+export default { destroy, list, getUserProfile, update };
