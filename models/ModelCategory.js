@@ -24,6 +24,11 @@ const categorySchema = mongoose.Schema(
       type: Boolean,
       default: true,
     },
+
+    imgCategory: {
+      type: String,
+      trim: true,
+    },
   },
   { timestamps: true }
 );

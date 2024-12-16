@@ -21,12 +21,13 @@ async function getById(req, res) {
 }
 
 async function create(req, res) {
-  const { name, description, festivity } = req.body;
+  const { name, description, festivity, imgCategory } = req.body;
   try {
     const newCategory = await categoryModel.create({
       name,
       description,
       festivity,
+      imgCategory,
     });
     return res.status(201).json(newCategory);
   } catch (error) {
@@ -38,12 +39,13 @@ async function create(req, res) {
 async function update(req, res) {
   const categoryUpdate = await categoryModel.findById(req.params.id);
   if (categoryUpdate !== null) {
-    const { id, name, description, festivity, season } = req.body;
+    const { id, name, description, festivity, imgCategory, isActive } = req.body;
 
     categoryUpdate.name = name || categoryUpdate.name;
     categoryUpdate.description = description || categoryUpdate.description;
     categoryUpdate.festivity = festivity || categoryUpdate.festivity;
-    categoryUpdate.isActive = isActive || categoryUpdate.isActive;
+    categoryUpdate.imgCategory = imgCategory || categoryUpdate.imgCategory;
+    categoryUpdate.isActive = isActive !== undefined ? isActive : categoryUpdate.isActive;
 
     await categoryUpdate.save();
 
