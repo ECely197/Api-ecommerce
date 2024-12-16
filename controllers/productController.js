@@ -1,109 +1,126 @@
 import Product from "../models/product.js";
 
-export const getAll = async (req, res) => {
+// Lista todos los productos
+async function list(req, res) {
   try {
     const products = await Product.find({ deletedAt: null });
-    return res.json(products);
-  } catch (error) {
-    console.error(error);
-    return res.status(500).json({ message: "Error retrieving products" });
+    res.status(200).json(products);
+  } catch (err) {
+    res.status(500).json({ message: "Error del servidor", error: err.message });
   }
-};
+}
 
-export const getById = async (req, res) => {
+// Busca un producto por su ID
+async function find(req, res) {
   try {
     const product = await Product.findById(req.params.id);
 
-    if (!product || product.deletedAt) {
-      return res.status(404).json({ message: "Product not found" });
+    if (product && product.deletedAt === null) {
+      res.status(200).json(product);
+    } else {
+      res.status(404).json({ message: "Producto no encontrado" });
     }
-
-    return res.json(product);
-  } catch (error) {
-    console.error(error);
-    return res.status(500).json({ message: "Error retrieving product" });
+  } catch (err) {
+    res.status(500).json({ message: "Error del servidor", error: err.message });
   }
-};
+}
 
-export const create = async (req, res) => {
+// Crea un nuevo producto
+async function create(req, res) {
   try {
-    console.log("Request body:", req.body);
-    console.log("Uploaded file:", req.file);
+    console.log("Datos recibidos en el body:", req.body);
 
-    const { productID, name, description, price, stock, categoryID } = req.body;
-
-    // Check if a file was uploaded
-    const imagePath = req.file ? req.file.path : null;
-
-    const newProduct = await Product.create({
-      productID,
-      name,
-      description,
-      price,
+    const {
+      nombre,
+      precio,
+      images,
+      descripcionOne,
+      descripcionTwo,
+      categoriaId,
+      material,
+      dimensions,
       stock,
-      categoryID,
-      imagePath,
-    });
+      shippingTime,
+    } = req.body;
 
-    console.log("Product successfully created");
-
-    return res
-      .status(201)
-      .json({ message: "Product created successfully", product: newProduct });
-  } catch (error) {
-    console.error(error);
-    return res.status(500).json({ message: "Internal server error" });
-  }
-};
-
-export const update = async (req, res) => {
-  try {
-    const productToUpdate = await Product.findById(req.params.id);
-
-    if (!productToUpdate || productToUpdate.deletedAt) {
-      return res.status(404).json({ message: "Product not found" });
+    // Validar que images sea un array
+    if (!Array.isArray(images)) {
+      return res.status(400).json({ message: "images debe ser un array." });
     }
 
-    const { productID, name, description, price, stock, categoryID } = req.body;
-
-    Object.assign(productToUpdate, {
-      productID: productID || productToUpdate.productID,
-      name: name || productToUpdate.name,
-      description: description || productToUpdate.description,
-      price: price || productToUpdate.price,
-      stock: stock || productToUpdate.stock,
-      categoryID: categoryID || productToUpdate.categoryID,
-      imagePath: req.file ? req.file.path : productToUpdate.imagePath,
+    // Crear el nuevo producto
+    const newProduct = await Product.create({
+      nombre,
+      precio,
+      images,
+      descripcionOne,
+      descripcionTwo,
+      categoriaId,
+      material: material || null,
+      dimensions: dimensions || null,
+      stock: stock || 0,
+      shippingTime: shippingTime || null,
     });
 
-    await productToUpdate.save();
+    console.log("Producto creado exitosamente:", newProduct);
 
-    return res.json({
-      message: "Product updated successfully",
-      product: productToUpdate,
-    });
-  } catch (error) {
-    console.error(error);
-    return res.status(500).json({ message: "Internal server error" });
+    res.status(201).json({ message: "Producto creado exitosamente", product: newProduct });
+  } catch (err) {
+    console.error("Error al crear el producto:", err.message);
+    res.status(500).json({ message: "Error del servidor", error: err.message });
   }
-};
+}
 
-export const destroy = async (req, res) => {
+// Actualiza un producto por ID
+async function update(req, res) {
   try {
-    const productToDelete = await Product.findById(req.params.id);
+    const productId = req.params.id;
+    const updatedProduct = await Product.findByIdAndUpdate(productId, req.body, { new: true, runValidators: true });
 
-    if (!productToDelete || productToDelete.deletedAt) {
-      return res
-        .status(404)
-        .json({ message: "Product not found or already deleted" });
+    if (updatedProduct) {
+      res.status(200).json({ message: "Producto actualizado", product: updatedProduct });
+    } else {
+      res.status(404).json({ message: "Producto no encontrado" });
     }
-
-    productToDelete.deletedAt = Date.now();
-    await productToDelete.save();
-
-    return res.json({ message: "Product deleted successfully" });
-  } catch (error) {
-    console.error(error);
-    return res.status(500).json({ message: "Internal server error" });
+  } catch (err) {
+    res.status(500).json({ message: "Error del servidor", error: err.message });
   }
+}
+
+// Marca un producto como eliminado
+async function destroy(req, res) {
+  try {
+    const productId = req.params.id;
+    const deletedProduct = await Product.findByIdAndUpdate(productId, { deletedAt: new Date() }, { new: true });
+
+    if (deletedProduct) {
+      res.status(200).json({ message: "Producto eliminado", product: deletedProduct });
+    } else {
+      res.status(404).json({ message: "Producto no encontrado" });
+    }
+  } catch (err) {
+    res.status(500).json({ message: "Error del servidor", error: err.message });
+  }
+}
+
+// Encuentra productos por categoría
+async function findByCategory(req, res) {
+  try {
+    const { categoriaId } = req.params;
+    const products = await Product.find({ categoriaId, deletedAt: null });
+
+    res.status(200).json(products);
+  } catch (err) {
+    res.status(500).json({ message: "Error del servidor", error: err.message });
+  }
+}
+
+// Exportar los controladores
+export default {
+  list,
+  find,
+  create,
+  update,
+  destroy,
+  findByCategory,
 };
