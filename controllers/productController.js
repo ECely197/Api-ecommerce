@@ -1,4 +1,27 @@
 import Product from "../models/product.js";
+import categoryModel from "../models/ModelCategory.js";
+
+// funcion para asignar categoria segun tipo
+export const asignarCategoriaPorTipo = async (tipo) =>{
+  const categoriaMap ={
+    'dia de las madres': 'Dia de la madre',
+    'dia del padre': 'Dia del padre',
+    'dia del amor y la amistad':'Dia del amor y la amistad',
+    'cumpleaños': 'Cumpleaños',
+    'dia especial': 'Dia especial',
+  };
+  const nombreCategoria = categoriaMap[tipo.toLowerCase()];
+
+  if(!nombreCategoria){
+    throw new Error(`No existe una categoria para el tipo: ${tipo}`)
+  }
+  //bucas o crea la categoria 
+  let categoria = await categoryModel.findOne({ name: nombreCategoria});
+  if(!categoria){
+    categoria = await categoryModel.create({ name: nombreCategoria});
+  }
+  return categoria._id;
+}
 
 // Lista todos los productos
 async function list(req, res) {
@@ -32,16 +55,19 @@ async function create(req, res) {
 
     const {
       nombre,
+      tipo,
       precio,
       images,
       descripcionOne,
       descripcionTwo,
-      categoriaId,
+      categoria,
       material,
       dimensions,
       stock,
       shippingTime,
     } = req.body;
+    //asignar categoria segun el tipo
+    const categoryId = await asignarCategoriaPorTipo(tipo);
 
     // Validar que images sea un array
     if (!Array.isArray(images)) {
@@ -51,11 +77,12 @@ async function create(req, res) {
     // Crear el nuevo producto
     const newProduct = await Product.create({
       nombre,
+      tipo,
       precio,
       images,
       descripcionOne,
       descripcionTwo,
-      categoriaId,
+      categoria : categoryId,
       material: material || null,
       dimensions: dimensions || null,
       stock: stock || 0,

@@ -11,11 +11,6 @@ const categorySchema = mongoose.Schema(
       type: String,
       trim: true,
     },
-    // creo que festivity no se utiliza si es ese el caso eliminarlo 
-    festivity: {
-      type: String,
-      requiered: true,
-    },
     deleteAt: {
       type: Date,
       default: null,

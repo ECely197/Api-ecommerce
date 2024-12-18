@@ -2,6 +2,7 @@ import mongoose from "mongoose";
 import dotenv from "dotenv";
 import Product from "../models/product.js";
 import connectDB from "../config/database.js";
+import { asignarCategoriaPorTipo } from "../controllers/productController.js";
 
 dotenv.config();
 
@@ -15,27 +16,27 @@ async function productSeeder() {
     // Crear nuevos productos
     const products = [
       {
-        _id: new mongoose.Types.ObjectId(),
-        nombre: "Regalo Navideño Exclusivo",
+        tipo: "dia de las madres",
+        nombre: "Ramo de flores",
         precio: 350000,
-        categoriaId: "6657fecf41bac694f2713351",
-        descripcionOne: "Un hermoso set de regalos navideños para sorprender a tus seres queridos.",
-        descripciontwo: "Incluye regalos decorativos y funcionales para todas las edades.",
+        descripcionOne: "Unas hermosas flores para regalar a la madre",
+        descripciontwo: "Incluye margaritas, rosas",
         images: [
           "https://media.istockphoto.com/id/1353442746/es/foto/regalo-de-navidad-3d-regalo-sobre-fondo-rojo-con-espacio-de-copia.jpg?s=612x612&w=0&k=20&c=2DwgJvKq4ojp0KchNABQVdx2fgHP4-N_PYDnlVfopQ4=",
           "https://media.istockphoto.com/id/1477614491/es/foto/caja-de-regalo-roja-para-navidad-espacio-de-copia-3d-renderizado.jpg?s=612x612&w=0&k=20&c=2Mi3V9YOlO8DrojUvzSmQ2yXojVNZv-cycyDz_RTftQ="
         ],
-        material: "Plástico y Tela",
+        material: "flores",
         dimensions: "30x20x15 cm",
         stock: 100,
         shippingTime: "3-5 días laborales",
-        marca: "Marca Ejemplo",
+        marca: "naturales",
       },
       {
         _id: new mongoose.Types.ObjectId(),
-        nombre: "Cesta de Regalos Gourmet",
+        nombre: "Tasa",
+        tipo: "dia del padre",
         precio: 600000,
-        categoriaId: "6657fecf41bac694f2713351",
+        categoriaId: mongoose.Category_Id,
         descripcionOne: "Una cesta exquisita con productos gourmet.",
         descripciontwo: "Incluye una variedad de chocolates, quesos y vinos selectos.",
         images: [
@@ -50,10 +51,9 @@ async function productSeeder() {
         marca: "Gourmet Delights",
       },
       {
-        _id: new mongoose.Types.ObjectId(),
-        nombre: "Juego de Té Elegante",
+        
+        tipo: "dia del amor y la amistad",
         precio: 75000,
-        categoriaId: "6657fecf41bac694f2713351",
         descripcionOne: "Un juego de té de cerámica que combina elegancia y funcionalidad.",
         images: [
           "https://images.unsplash.com/photo-1594855643243-4eb2b7351c3c",
@@ -65,9 +65,19 @@ async function productSeeder() {
         shippingTime: "2-4 días laborales",
         marca: "Tea Elegance",
       },
-    ];
+     ];
+     for (const productData of products) {
+      try {
+        // Asignar categoría según el tipo
+        const categoryId = await asignarCategoriaPorTipo(productData.tipo);
 
-    await Product.create(products);
+        // Crear el producto directamente
+        const product = await Product.create({ ...productData, categoria: categoryId });
+        console.log(`Producto creado: ${product.nombre}`);
+      } catch (error) {
+        console.error(`Error al crear el producto ${productData.nombre}:`, error.message);
+      }
+    }
     console.log("[DB] Seeder ejecutado con éxito.");
   } catch (err) {
     console.error("[DB] Error al ejecutar el seeder:", err);
