@@ -3,7 +3,6 @@ import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import { body, validationResult } from 'express-validator';
 
-
 export const register = async (req, res) => {
   try {
     // Validar la existencia de todos los campos requeridos
@@ -86,7 +85,6 @@ export const login = async (req, res) => {
       },
     });
   } catch (error) {
-    console.error('Error en el inicio de sesión:', error.message);
     res.status(500).json({ message: 'Error interno del servidor.' });
   }
 };
