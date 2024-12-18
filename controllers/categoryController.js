@@ -1,6 +1,6 @@
 import categoryModel from "../models/ModelCategory.js";
 
-async function getAll(req, res) {
+export const getAll = async(req, res)=> {
   try {
     const categories = await categoryModel.find({ deleteAt: null });
     return res.json(categories);
@@ -10,7 +10,7 @@ async function getAll(req, res) {
   }
 }
 
-async function getById(req, res) {
+export const getById = async (req, res) => {
   try {
     const category = await categoryModel.findById(req.params.id);
     return res.json(category);
@@ -20,7 +20,7 @@ async function getById(req, res) {
   }
 }
 
-async function create(req, res) {
+export const create = async(req, res) =>{
   const { name, description, festivity, imgCategory } = req.body;
   try {
     const newCategory = await categoryModel.create({
@@ -36,7 +36,7 @@ async function create(req, res) {
   }
 }
 
-async function update(req, res) {
+export const update = async (req, res) => {
   const categoryUpdate = await categoryModel.findById(req.params.id);
   if (categoryUpdate !== null) {
     const { id, name, description, festivity, imgCategory, isActive } = req.body;
@@ -55,7 +55,7 @@ async function update(req, res) {
   }
 }
 
-async function deleted(req, res) {
+export const deleted = async(req, res) => {
   try {
     const categoryId = req.params.id;
     const categoryDeleted = await categoryModel.findById(categoryId);
