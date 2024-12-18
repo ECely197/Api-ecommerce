@@ -1,4 +1,4 @@
-//
+
 import User from '../models/User.js';
 
 export const getUserProfile = async (req, res) => {
@@ -39,3 +39,9 @@ export const list = async (req, res) => {
     res.status(500).json({ message: 'Error interno del servidor.' });
   }
 };
+export default{
+  getUserProfile,
+  update,
+  destroy,
+  list,
+}
