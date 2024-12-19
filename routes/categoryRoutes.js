@@ -3,10 +3,10 @@ import categoryController from "../controllers/categoryController.js";
 
 const router = express();
 
-router.get("/api/categories", categoryController.getAll);
-router.get("/api/categories/:id", categoryController.getById);
-router.post("/api/categories", categoryController.create);
-router.patch("/api/categories/:id", categoryController.update);
-router.delete("/api/categories/:id", categoryController.deleted);
+router.get("/categories", categoryController.getAll);
+router.get("/categories/:id", categoryController.getById);
+router.post("/categories", categoryController.create);
+router.patch("/categories/:id", categoryController.update);
+router.delete("/categories/:id", categoryController.deleted);
 
 export default router;

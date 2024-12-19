@@ -30,10 +30,10 @@ app.post('/api/auth/register', upload.single('avatar'), authController.register)
 app.post('/api/auth/validate', authController.tokenIsValid);
 
 // Resto de las rutas
-app.use('/api/users', userRoutes);
-app.use('/api/categories', categoryRoutes);
-app.use('/api/products', productRoutes);
-app.use('/api/orders', orderRoutes);
+app.use('/api', userRoutes);
+app.use('/api', categoryRoutes);
+app.use('/api', productRoutes);
+app.use('/api', orderRoutes);
 
 app.listen(process.env.PORT || 3000, () => {
     console.log(`Server running on port ${process.env.PORT || 3000}`);
