@@ -60,7 +60,6 @@ export const create = async (req, res) => {
       images,
       descripcionOne,
       descripcionTwo,
-      categoria,
       material,
       dimensions,
       stock,
