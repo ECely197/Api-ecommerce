@@ -24,7 +24,7 @@ export const asignarCategoriaPorTipo = async (tipo) =>{
 }
 
 // Lista todos los productos
-async function list(req, res) {
+export const list = async (req, res) =>{
   try {
     const products = await Product.find({ deletedAt: null });
     res.status(200).json(products);
@@ -34,7 +34,7 @@ async function list(req, res) {
 }
 
 // Busca un producto por su ID
-async function find(req, res) {
+export const find = async (req, res) => {
   try {
     const product = await Product.findById(req.params.id);
 
@@ -49,7 +49,7 @@ async function find(req, res) {
 }
 
 // Crea un nuevo producto
-async function create(req, res) {
+export const create = async (req, res) => {
   try {
     console.log("Datos recibidos en el body:", req.body);
 
@@ -99,7 +99,7 @@ async function create(req, res) {
 }
 
 // Actualiza un producto por ID
-async function update(req, res) {
+export const update = async (req, res) => {
   try {
     const productId = req.params.id;
     const updatedProduct = await Product.findByIdAndUpdate(productId, req.body, { new: true, runValidators: true });
@@ -115,7 +115,7 @@ async function update(req, res) {
 }
 
 // Marca un producto como eliminado
-async function destroy(req, res) {
+export const destroy = async (req, res) => {
   try {
     const productId = req.params.id;
     const deletedProduct = await Product.findByIdAndUpdate(productId, { deletedAt: new Date() }, { new: true });
@@ -131,7 +131,7 @@ async function destroy(req, res) {
 }
 
 // Encuentra productos por categoría
-async function findByCategory(req, res) {
+export const findByCategory = async (req, res) =>{
   try {
     const { categoriaId } = req.params;
     const products = await Product.find({ categoriaId, deletedAt: null });
@@ -150,4 +150,5 @@ export default {
   update,
   destroy,
   findByCategory,
+  asignarCategoriaPorTipo,
 };
