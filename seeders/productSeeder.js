@@ -21,8 +21,9 @@ async function productSeeder() {
         tipo: "dia de las madres",
         precio: 350000,
         images: [
-          "https://centrodejardineriagorbeia.com/wp-content/uploads/2022/04/Tulipanes-significadoflores-scaled.jpg",
-          "https://centrodejardineriagorbeia.com/wp-content/uploads/2022/04/Tulipanes-significadoflores-scaled.jpg"
+          "https://floreriachic.com/cdn/shop/products/Chic-164_360x.jpg?v=1543320240",
+          "https://www.floristeriaideal.com/fotos/3796_1.jpg",
+          "https://www.floristeriaideal.com/fotos/3803_1.jpg"
         ],
         descripcionOne: "Unas hermosas flores para regalar a la madre",
         descripcionTwo: null,
@@ -41,7 +42,7 @@ async function productSeeder() {
         precio: 600000,
         images: [
           "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRhKL2VO2GjGo2MyKNDP3ZNLh1KzRPHO2pFdw&s",
-          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRhKL2VO2GjGo2MyKNDP3ZNLh1KzRPHO2pFdw&s",
+          "https://mamushkapalma.es/221-large_default/tassa-el-papa-necessita-un-cafe.jpg",
           "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRhKL2VO2GjGo2MyKNDP3ZNLh1KzRPHO2pFdw&s"
         ],
         descripcionOne: "Una cesta exquisita con productos gourmet.",
@@ -60,7 +61,8 @@ async function productSeeder() {
         tipo: "dia del amor y la amistad",
         precio: 120000,
         images: [
-          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQINhIQYTF7ioKeO4yCbsuI8PxaPvqVpzRTow&s",
+          "https://truffelinos.com.co/wp-content/uploads/2023/04/Caja-49-U.png",
+          "https://www.kaoxuechocolates.co/wp-content/uploads/2024/02/MG_0407-1.jpg",
 
           "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQINhIQYTF7ioKeO4yCbsuI8PxaPvqVpzRTow&s"
         ],
@@ -81,8 +83,9 @@ async function productSeeder() {
         precio: 180000,
         images: [
           "https://imag.bonviveur.com/presentacion-final-de-la-tarta-de-cumpleanos-de-bizcocho-y-trufa.jpg",
-          "https://images.unsplash.com/photo-1559622214-652159d9dd9c"
-        ],
+          "https://i.blogs.es/c3eec2/tarta-de-crema-de-mantequilla-frambuesas-y-mascarpone/1366_2000.jpeg",  
+
+        "https://i.blogs.es/2565fb/tarta_cumpleanos/1024_2000.jpg"        ],
         descripcionOne: "Un pastel esponjoso con decoración personalizada para celebrar un cumpleaños inolvidable.",
         descripcionTwo: "Sabores a elegir: vainilla, chocolate, fresa. Decoraciones personalizadas.",
         categoria: "6764c9b1fcf1c1cd45ff3791", // Categoría para "Cumpleaños"
@@ -99,8 +102,10 @@ async function productSeeder() {
         tipo: "dia especial",
         precio: 220000,
         images: [
-          "https://images.unsplash.com/photo-1518515097038-ca19a3777cd6",
-          "https://images.unsplash.com/photo-1513801167660-70c74f8922f1"
+          "https://creativeboxcolombia.com/wp-content/uploads/2024/03/cajas-personalizadas-regalos-creative-box-regalos-a-domicilio-compra-caja-creativa-ninos-ninas.jpg",
+          "https://creativeboxcolombia.com/wp-content/uploads/2024/03/cajas-personalizadas-regalos-creative-box-regalos-a-domicilio-compra-caja-creativa-ninos-ninas.jpg",
+          "https://desayunosydetalles.com.co/wp-content/uploads/2021/04/Candy-Sorpresa-obsequio-1.png"
+        
         ],
         descripcionOne: "Una caja de regalo llena de detalles únicos para una ocasión especial.",
         descripcionTwo: "Incluye una mezcla de accesorios, velas aromáticas, una tarjeta escrita a mano.",
@@ -111,7 +116,48 @@ async function productSeeder() {
         shippingTime: "2-4 días laborales",
         marca: "Memories&Co",
         deletedAt: null
-      }
+      },
+      {
+        _id: "6764cdc5c312f49b1f1ebabf5",
+        nombre: "Caja solpresa",
+        tipo: "dia especial",
+        precio: 303000,
+        images: [
+          "https://maestrosdeaudicionylenguaje.com/wp-content/uploads/2015/12/La-caja-de-las-sorpresas_Eugenia-Romero-e1449691902946.png",
+          "https://www.inolvidablemomento.com/wp-content/uploads/2022/06/Caja-Sorpresa-IN-072-2.webp",
+          "https://i0.wp.com/www.candydepot.com.gt/wp-content/uploads/2023/02/Caja-sorpresa-50.jpeg?fit=992%2C1280&ssl=1"
+        ],
+        descripcionOne: "Una caja de regalo llena de detalles únicos para una ocasión especial.",
+        descripcionTwo: "Incluye una mezcla de accesorios, velas aromáticas, una tarjeta escrita a mano.",
+        categoria: "6764c9b1fcf1c1cd45ff3792", // Categoría para "Día especial"
+        material: "Variado (accesorios, papel, velas)",
+        dimensions: "30x30x20 cm",
+        stock: 30,
+        shippingTime: "2-4 días laborales",
+        marca: "Memories&Co",
+        deletedAt: null
+      },
+      {
+        _id: "6764cdc5c19f49b1f1ebabf5",
+        nombre: "caja de navidad",
+        tipo: "dia especial",
+        precio: 220000,
+        images: [
+          "https://previews.123rf.com/images/lightfieldstudios/lightfieldstudios1810/lightfieldstudios181038211/110516136-vista-de-%C3%A1ngulo-alto-de-las-cajas-de-regalo-de-navidad-en-el-suelo-bajo-el-%C3%A1rbol-de-navidad-en-la.jpg",
+          "https://previews.123rf.com/images/dmitriisimakov/dmitriisimakov1812/dmitriisimakov181201486/113721323-a%C3%B1o-nuevo-navidad-fondo-%C3%A1rbol-de-navidad-regalos-decoraci%C3%B3n-decoraci%C3%B3n-vacaciones-invierno.jpg",
+          "https://previews.123rf.com/images/djedzura/djedzura1611/djedzura161100250/68629280-regalo-de-navidad-con-cinta-roja-sobre-fondo-de-madera.jpg"
+        
+        ],
+        descripcionOne: "Una caja de regalo llena de detalles únicos para navida.",
+        descripcionTwo: "Incluye una varias cosas como sacos,ropa o recuerdos.",
+        categoria: "6764c9b1fcf1c1cd45ff3792", // Categoría para "Día especial"
+        material: "Variado (accesorios, papel, velas)",
+        dimensions: "30x30x20 cm",
+        stock: 30,
+        shippingTime: "2-4 días laborales",
+        marca: "Memories&Co",
+        deletedAt: null
+      },
     ];
      for (const productData of products) {
       try {
