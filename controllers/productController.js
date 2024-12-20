@@ -3,6 +3,9 @@ import categoryModel from "../models/ModelCategory.js";
 
 // funcion para asignar categoria segun tipo
 export const asignarCategoriaPorTipo = async (tipo) =>{
+  if (typeof tipo !== "string" || tipo.trim() === "") {
+    throw new Error("El tipo proporcionado debe ser un string no vacío");
+  }
   const categoriaMap ={
     'dia de las madres': 'Dia de la madre',
     'dia del padre': 'Dia del padre',
