@@ -81,7 +81,7 @@ async function productSeeder() {
         precio: 180000,
         images: [
           "https://imag.bonviveur.com/presentacion-final-de-la-tarta-de-cumpleanos-de-bizcocho-y-trufa.jpg",
-          "https://imag.bonviveur.com/presentacion-final-de-la-tarta-de-cumpleanos-de-bizcocho-y-trufa.jpg"
+          "https://images.unsplash.com/photo-1559622214-652159d9dd9c"
         ],
         descripcionOne: "Un pastel esponjoso con decoración personalizada para celebrar un cumpleaños inolvidable.",
         descripcionTwo: "Sabores a elegir: vainilla, chocolate, fresa. Decoraciones personalizadas.",
