@@ -1,5 +1,4 @@
-
-import User from '../models/User.js';
+import User from "../models/USer";
 
 export const getUserProfile = async (req, res) => {
   try {
@@ -35,7 +34,7 @@ export const list = async (req, res) => {
   try {
     const users = await User.find();
     res.status(200).json(users);
-  } catch (error) {
+  } catch (err) {
     res.status(500).json({ message: 'Error interno del servidor.' });
   }
 };
