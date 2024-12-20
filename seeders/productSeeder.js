@@ -118,46 +118,46 @@ async function productSeeder() {
         deletedAt: null
       },
       {
-        _id: "6764cdc5c312f49b1f1ebabf5",
-        nombre: "Caja solpresa",
-        tipo: "dia especial",
-        precio: 303000,
-        images: [
-          "https://maestrosdeaudicionylenguaje.com/wp-content/uploads/2015/12/La-caja-de-las-sorpresas_Eugenia-Romero-e1449691902946.png",
-          "https://www.inolvidablemomento.com/wp-content/uploads/2022/06/Caja-Sorpresa-IN-072-2.webp",
-          "https://i0.wp.com/www.candydepot.com.gt/wp-content/uploads/2023/02/Caja-sorpresa-50.jpeg?fit=992%2C1280&ssl=1"
+        "_id": "6764cdc5c19f49b1f1ebabcde",
+        "nombre": "Caja solpresa",
+        "tipo": "dia especial",
+        "precio": 303000,
+        "images": [
+          "https://i.pinimg.com/736x/87/33/5c/87335ce75d4da6bbd6ae3ae9ab62aba8.jpg",
+          "https://i.pinimg.com/736x/69/ce/67/69ce67abfebe1ad1ee47a9a7c4b9ad26.jpg",
+          "https://i.pinimg.com/736x/c6/d9/43/c6d94351fdf1d0a6d68b3773ddd18aa3.jpg"
         ],
-        descripcionOne: "Una caja de regalo llena de detalles únicos para una ocasión especial.",
-        descripcionTwo: "Incluye una mezcla de accesorios, velas aromáticas, una tarjeta escrita a mano.",
-        categoria: "6764c9b1fcf1c1cd45ff3792", // Categoría para "Día especial"
-        material: "Variado (accesorios, papel, velas)",
-        dimensions: "30x30x20 cm",
-        stock: 30,
-        shippingTime: "2-4 días laborales",
-        marca: "Memories&Co",
-        deletedAt: null
+        "descripcionOne": "Una caja de regalo llena de detalles únicos para una ocasión especial.",
+        "descripcionTwo": "Incluye una mezcla de accesorios, velas aromáticas, una tarjeta escrita a mano.",
+        "categoria": "6764c9b1fcf1c1cd45ff3792",
+        "material": "Variado (accesorios, papel, velas)",
+        "dimensions": "30x30x20 cm",
+        "stock": 30,
+        "shippingTime": "2-4 días laborales",
+        "marca": "Memories&Co",
+        "deletedAt": null
       },
       {
-        _id: "6764cdc5c19f49b1f1eb34cv",
-        nombre: "caja de navidad",
-        tipo: "dia especial",
-        precio: 220000,
-        images: [
-          "https://previews.123rf.com/images/lightfieldstudios/lightfieldstudios1810/lightfieldstudios181038211/110516136-vista-de-%C3%A1ngulo-alto-de-las-cajas-de-regalo-de-navidad-en-el-suelo-bajo-el-%C3%A1rbol-de-navidad-en-la.jpg",
-          "https://previews.123rf.com/images/dmitriisimakov/dmitriisimakov1812/dmitriisimakov181201486/113721323-a%C3%B1o-nuevo-navidad-fondo-%C3%A1rbol-de-navidad-regalos-decoraci%C3%B3n-decoraci%C3%B3n-vacaciones-invierno.jpg",
-          "https://previews.123rf.com/images/djedzura/djedzura1611/djedzura161100250/68629280-regalo-de-navidad-con-cinta-roja-sobre-fondo-de-madera.jpg"
-        
+        "_id": "6764cdc5c19f49b1f1ebdefgh",
+        "nombre": "caja de navidad",
+        "tipo": "dia especial",
+        "precio": 220000,
+        "images": [
+          "https://i.pinimg.com/736x/fd/d3/00/fdd300052370d7e12f151883a94d649a.jpg",
+          "https://i.pinimg.com/736x/94/a6/85/94a68568b6b5a38f112bcba2a7d7008c.jpg",
+          "https://i.pinimg.com/736x/09/be/89/09be892c6282ae508654f4b095b653bf.jpg"
         ],
-        descripcionOne: "Una caja de regalo llena de detalles únicos para navida.",
-        descripcionTwo: "Incluye una varias cosas como sacos,ropa o recuerdos.",
-        categoria: "6764c9b1fcf1c1cd45ff3792", // Categoría para "Día especial"
-        material: "Variado (accesorios, papel, velas)",
-        dimensions: "30x30x20 cm",
-        stock: 30,
-        shippingTime: "2-4 días laborales",
-        marca: "Memories&Co",
-        deletedAt: null
-      },
+        "descripcionOne": "Una caja de regalo llena de detalles únicos para navidad.",
+        "descripcionTwo": "Incluye varias cosas como sacos, ropa o recuerdos.",
+        "categoria": "6764c9b1fcf1c1cd45ff3792",
+        "material": "Variado (accesorios, papel, velas)",
+        "dimensions": "30x30x20 cm",
+        "stock": 30,
+        "shippingTime": "2-4 días laborales",
+        "marca": "Memories&Co",
+        "deletedAt": null
+      }
+      
     ];
      for (const productData of products) {
       try {
