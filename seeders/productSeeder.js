@@ -138,7 +138,7 @@ async function productSeeder() {
         deletedAt: null
       },
       {
-        _id: "6764cdc5c19f49b1f1ebabf5",
+        _id: "6764cdc5c19f49b1f1eb34cv",
         nombre: "caja de navidad",
         tipo: "dia especial",
         precio: 220000,
